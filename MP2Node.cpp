@@ -77,8 +77,9 @@ void MP2Node::updateRing() {
 		for(size_t i = 0; i < ringSize; ++i){
 			if (this->ring[i].getHashCode() == self.getHashCode()){
 				// need to replica the key
-				hasMyReplicas = {this->ring[(i+1) % ringSize], this->ring[(i+2) % ringSize]}; // the successor
-				haveReplicasOf = {this->ring[(i-1+ringSize) % ringSize], this->ring[(i-2+ringSize) % ringSize]}; // the predcessor
+				auto newHasMyReplicas = {this->ring[(i+1) % ringSize], this->ring[(i+2) % ringSize]}; // the successor
+				auto newHaveReplicasOf = {this->ring[(i-1+ringSize) % ringSize], this->ring[(i-2+ringSize) % ringSize]}; // the predcessor
+				// if needed to update the key, then update
 				break;
 			}
 		}
@@ -98,8 +99,9 @@ void MP2Node::updateRing() {
 vector<Node> MP2Node::getMembershipList() {
 	unsigned int i;
 	vector<Node> curMemList;
+	auto curTime = this->par->getcurrtime();
 	for ( i = 0 ; i < this->memberNode->memberList.size(); i++ ) {
-		if(this->memberNode->memberList[i].heartbeat == 0l) // judge if it is live
+		if(this->memberNode->memberList[i].heartbeat == 0l && curTime - this->memberNode->memberList[i].timestamp >= 20) // judge if it is out of group
 			continue;
 		Address addressOfThisMember;
 		int id = this->memberNode->memberList.at(i).getid();
@@ -157,6 +159,7 @@ void MP2Node::clientCreate(string key, string value) {
 			// this->replyCount[transID] = make_pair(3, msg);
 			// this->replyCount.insert(make_pair(transID, make_pair(3, msg)));
 			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+			timestamp[transID] = this->par->getcurrtime();
 		}
 		Address* dist = nodes[i].getAddress();
 		dispatchMessages(msg, *dist);
@@ -184,6 +187,7 @@ void MP2Node::clientRead(string key){
 		Message msg(transID, this->memberNode->addr, READ, key);
 		if(i == 0){
 			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+			timestamp[transID] = this->par->getcurrtime();
 		}
 		Address* dist = nodes[i].getAddress();
 		dispatchMessages(msg, *dist);
@@ -210,6 +214,7 @@ void MP2Node::clientUpdate(string key, string value){
 		Message msg(transID, this->memberNode->addr, UPDATE, key, value, ReplicaType(i));
 		if(i == 0){
 			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+			timestamp[transID] = this->par->getcurrtime();
 		}
 		Address* dist = nodes[i].getAddress();
 		dispatchMessages(msg, *dist);
@@ -236,6 +241,7 @@ void MP2Node::clientDelete(string key){
 		Message msg(transID, this->memberNode->addr, DELETE, key);
 		if(i == 0){
 			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+			timestamp[transID] = this->par->getcurrtime();
 		}
 		Address* dist = nodes[i].getAddress();
 		dispatchMessages(msg, *dist);
@@ -325,20 +331,24 @@ void MP2Node::checkMessages() {
 	 */
 	char * data;
 	int size;
-	if(this->par->getcurrtime() % 400 == 0){
+	if(this->par->getcurrtime() % 8 == 0){
 		int curTime = this->par->getcurrtime();
 		auto iter = this->replyCount.begin();
 		while(iter != this->replyCount.end()){
 			auto& msg = iter->second.second;
-			if(msg.type == CREATE)
-				log->logCreateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
-			else if(msg.type == READ)
-				log->logReadFail(&this->memberNode->addr, true, msg.transID, msg.key);
-			else if(msg.type == UPDATE)
-				log->logUpdateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
-			else if(msg.type == DELETE)
-				log->logDeleteFail(&this->memberNode->addr, true, msg.transID, msg.key);
-			iter++;
+			if(curTime - timestamp[msg.transID] >= 18){
+				if(msg.type == CREATE)
+					log->logCreateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
+				else if(msg.type == READ)
+					log->logReadFail(&this->memberNode->addr, true, msg.transID, msg.key);
+				else if(msg.type == UPDATE)
+					log->logUpdateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
+				else if(msg.type == DELETE)
+					log->logDeleteFail(&this->memberNode->addr, true, msg.transID, msg.key);
+				iter = this->replyCount.erase(iter);
+			}
+			else			
+				iter++;
 		}
 	}
 	/*

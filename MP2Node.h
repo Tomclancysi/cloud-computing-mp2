@@ -86,6 +86,7 @@ private:
 	Node self;
 	// vector<Message> msgQueue;
 	unordered_map<int, pair<int, Message>> replyCount;
+	unordered_map<int, int> timestamp;
 
 public:
 	MP2Node(Member *memberNode, Params *par, EmulNet *emulNet, Log *log, Address *addressOfMember);
