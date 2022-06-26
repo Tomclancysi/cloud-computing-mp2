@@ -5,6 +5,7 @@
  **********************************/
 #include "MP2Node.h"
 
+
 /**
  * constructor
  */
@@ -15,12 +16,16 @@ MP2Node::MP2Node(Member *memberNode, Params *par, EmulNet * emulNet, Log * log, 
 	this->log = log;
 	ht = new HashTable();
 	this->memberNode->addr = *address;
+	this->self = Node(this->memberNode->addr);
+	this->myHost = *(int*)address->addr;
+	this->myPort = *(((short*)address->addr)+2);
 }
 
 /**
  * Destructor
  */
 MP2Node::~MP2Node() {
+	// printf("delete");
 	delete ht;
 	delete memberNode;
 }
@@ -38,9 +43,9 @@ void MP2Node::updateRing() {
 	/*
 	 * Implement this. Parts of it are already implemented
 	 */
+	// auto self = Node(this->memberNode->addr);
 	vector<Node> curMemList;
 	bool change = false;
-	printf("updatering this\n");
 
 	/*
 	 *  Step 1. Get the current membership list from Membership Protocol / MP1
@@ -52,12 +57,32 @@ void MP2Node::updateRing() {
 	 */
 	// Sort the list based on the hashCode
 	sort(curMemList.begin(), curMemList.end());
-
+	if(curMemList.size() != this->ring.size())
+		change = true;
+	else{
+		for(size_t i = 0; i < curMemList.size(); ++i)
+			if(curMemList[i].getHashCode() != this->ring[i].getHashCode()){
+				change = true;
+				break;
+			}
+	}
 
 	/*
-	 * Step 3: Run the stabilization protocol IF REQUIRED
+	 * Step 3: Run the stabilization protocol IF REQUIRED, UPDATE THE FINGER TABLE AND SUCCESSOR PREDESSOR
 	 */
 	// Run stabilization protocol if the hash table size is greater than zero and if there has been a changed in the ring
+	if(change){
+		this->ring = curMemList;
+		auto ringSize = this->ring.size();
+		for(size_t i = 0; i < ringSize; ++i){
+			if (this->ring[i].getHashCode() == self.getHashCode()){
+				// need to replica the key
+				hasMyReplicas = {this->ring[(i+1) % ringSize], this->ring[(i+2) % ringSize]}; // the successor
+				haveReplicasOf = {this->ring[(i-1+ringSize) % ringSize], this->ring[(i-2+ringSize) % ringSize]}; // the predcessor
+				break;
+			}
+		}
+	}
 }
 
 /**
@@ -83,6 +108,9 @@ vector<Node> MP2Node::getMembershipList() {
 		memcpy(&addressOfThisMember.addr[4], &port, sizeof(short));
 		curMemList.emplace_back(Node(addressOfThisMember));
 	}
+	// need it self maybe ?
+	Address addressOfMySelf = this->memberNode->addr;
+	curMemList.emplace_back(Node(addressOfMySelf));
 	return curMemList;
 }
 
@@ -101,6 +129,11 @@ size_t MP2Node::hashFunction(string key) {
 	return ret%RING_SIZE;
 }
 
+void MP2Node::dispatchMessages(Message msg, Address dist){
+	string str = msg.toString();
+	emulNet->ENsend(&this->memberNode->addr, &dist, str);
+}
+
 /**
  * FUNCTION NAME: clientCreate
  *
@@ -114,6 +147,20 @@ void MP2Node::clientCreate(string key, string value) {
 	/*
 	 * Implement this
 	 */
+	printf("client create\n");
+	auto nodes = findNodes(key);
+	
+	auto transID = (myHost * 1234567) ^ (myPort * 4567890) ^ this->par->getcurrtime() ^ rand(); // ip host + time 的随机数
+	for(int i = 0; i < nodes.size(); ++i){
+		Message msg(transID, this->memberNode->addr, CREATE, key, value, ReplicaType(i));
+		if(i == 0){
+			// this->replyCount[transID] = make_pair(3, msg);
+			// this->replyCount.insert(make_pair(transID, make_pair(3, msg)));
+			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+		}
+		Address* dist = nodes[i].getAddress();
+		dispatchMessages(msg, *dist);
+	}
 }
 
 /**
@@ -129,6 +176,18 @@ void MP2Node::clientRead(string key){
 	/*
 	 * Implement this
 	 */
+	printf("client read\n");
+	auto nodes = findNodes(key);
+	
+	auto transID = (myHost * 1234567) ^ (myPort * 4567890) ^ this->par->getcurrtime() ^ rand(); // ip host + time 的随机数
+	for(int i = 0; i < nodes.size(); ++i){
+		Message msg(transID, this->memberNode->addr, READ, key);
+		if(i == 0){
+			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+		}
+		Address* dist = nodes[i].getAddress();
+		dispatchMessages(msg, *dist);
+	}
 }
 
 /**
@@ -144,6 +203,17 @@ void MP2Node::clientUpdate(string key, string value){
 	/*
 	 * Implement this
 	 */
+	auto nodes = findNodes(key);
+	
+	auto transID = (myHost * 1234567) ^ (myPort * 4567890) ^ this->par->getcurrtime() ^ rand(); // ip host + time 的随机数
+	for(int i = 0; i < nodes.size(); ++i){
+		Message msg(transID, this->memberNode->addr, UPDATE, key, value, ReplicaType(i));
+		if(i == 0){
+			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+		}
+		Address* dist = nodes[i].getAddress();
+		dispatchMessages(msg, *dist);
+	}
 }
 
 /**
@@ -159,6 +229,17 @@ void MP2Node::clientDelete(string key){
 	/*
 	 * Implement this
 	 */
+	auto nodes = findNodes(key);
+	
+	auto transID = (myHost * 1234567) ^ (myPort * 4567890) ^ this->par->getcurrtime() ^ rand(); // ip host + time 的随机数
+	for(int i = 0; i < nodes.size(); ++i){
+		Message msg(transID, this->memberNode->addr, DELETE, key);
+		if(i == 0){
+			this->replyCount.emplace(transID, make_pair(QUORUM, msg)); // emplace 直接调用构造函数，而不是像push_back先默认构造然后赋值
+		}
+		Address* dist = nodes[i].getAddress();
+		dispatchMessages(msg, *dist);
+	}
 }
 
 /**
@@ -174,6 +255,8 @@ bool MP2Node::createKeyValue(string key, string value, ReplicaType replica) {
 	 * Implement this
 	 */
 	// Insert key, value, replicaType into the hash table
+	printf("server create\n");
+	return this->ht->create(key, value);
 }
 
 /**
@@ -189,6 +272,7 @@ string MP2Node::readKey(string key) {
 	 * Implement this
 	 */
 	// Read key from local hash table and return value
+	return this->ht->read(key);
 }
 
 /**
@@ -204,6 +288,7 @@ bool MP2Node::updateKeyValue(string key, string value, ReplicaType replica) {
 	 * Implement this
 	 */
 	// Update key in local hash table and return true or false
+	return this->ht->update(key, value);
 }
 
 /**
@@ -219,6 +304,7 @@ bool MP2Node::deletekey(string key) {
 	 * Implement this
 	 */
 	// Delete the key from the local hash table
+	return this->ht->deleteKey(key);
 }
 
 /**
@@ -229,13 +315,32 @@ bool MP2Node::deletekey(string key) {
  * 				1) Pops messages from the queue
  * 				2) Handles the messages according to message types
  */
+void MP2Node::replyMessage(int transID, Address fromAddress, Address toAddress, MessageType type, bool success){
+	Message msg(transID, fromAddress, type, success);
+	emulNet->ENsend(&this->memberNode->addr, &toAddress, msg.toString());
+}
 void MP2Node::checkMessages() {
 	/*
-	 * Implement this. Parts of it are already implemented
+	 * Implement this. Parts of it are already implemented. MAIN LOOP
 	 */
 	char * data;
 	int size;
-
+	if(this->par->getcurrtime() % 400 == 0){
+		int curTime = this->par->getcurrtime();
+		auto iter = this->replyCount.begin();
+		while(iter != this->replyCount.end()){
+			auto& msg = iter->second.second;
+			if(msg.type == CREATE)
+				log->logCreateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
+			else if(msg.type == READ)
+				log->logReadFail(&this->memberNode->addr, true, msg.transID, msg.key);
+			else if(msg.type == UPDATE)
+				log->logUpdateFail(&this->memberNode->addr, true, msg.transID, msg.key, msg.value);
+			else if(msg.type == DELETE)
+				log->logDeleteFail(&this->memberNode->addr, true, msg.transID, msg.key);
+			iter++;
+		}
+	}
 	/*
 	 * Declare your local variables here
 	 */
@@ -254,7 +359,77 @@ void MP2Node::checkMessages() {
 		/*
 		 * Handle the message types here
 		 */
-
+		Message msg(message);
+		if(msg.type == REPLY || msg.type == READREPLY){
+			auto iter = this->replyCount.find(msg.transID);
+			if(iter == this->replyCount.end())
+				return;
+			auto& value = iter->second;
+			
+			// 这里需要根据返回msg进行一点更新
+			if(msg.type == READREPLY && (msg.value != "" || value.first == QUORUM)){
+				value.second.value = msg.value;
+			}
+			
+			if((msg.type == REPLY && msg.success) || (msg.type == READREPLY && msg.value != ""))
+				value.first -= 1;
+			
+			if(value.first <= 0){
+				switch (value.second.type)
+				{
+				case MessageType::CREATE:
+					log->logCreateSuccess(&this->memberNode->addr, true, value.second.transID, value.second.key, value.second.value);
+					break;
+				case MessageType::READ:
+					log->logReadSuccess(&this->memberNode->addr, true, msg.transID, value.second.key, value.second.value);
+					break;
+				case MessageType::UPDATE:
+					log->logUpdateSuccess(&this->memberNode->addr, true, msg.transID, value.second.key, value.second.value);
+					break;
+				case MessageType::DELETE:
+					log->logDeleteSuccess(&this->memberNode->addr, true, msg.transID, value.second.key);
+					break;
+				default:
+					break;
+				}
+				this->replyCount.erase(iter);
+			}
+		}
+		else if(msg.type == CREATE){
+			bool suc = createKeyValue(msg.key, msg.value, msg.replica);
+			if(suc)
+				log->logCreateSuccess(&this->memberNode->addr, false, msg.transID, msg.key, msg.value);
+			else
+				log->logCreateFail(&this->memberNode->addr, false, msg.transID, msg.key, msg.value);
+			replyMessage(msg.transID, this->memberNode->addr, msg.fromAddr, REPLY, suc);
+		}
+		else if(msg.type == READ){
+			auto result = readKey(msg.key);
+			if(result == "")
+				log->logReadFail(&this->memberNode->addr, false, msg.transID, msg.key);
+			else
+				log->logReadSuccess(&this->memberNode->addr, false, msg.transID, msg.key, result);
+			Message retmsg(msg.transID, this->memberNode->addr, READREPLY, result);
+			emulNet->ENsend(&this->memberNode->addr, &msg.fromAddr, retmsg.toString());
+		}
+		else if(msg.type == UPDATE){
+			auto result = updateKeyValue(msg.key, msg.value, msg.replica);
+			if(result)
+				log->logUpdateSuccess(&this->memberNode->addr, false, msg.transID, msg.key, msg.value);
+			else
+				log->logUpdateFail(&this->memberNode->addr, false, msg.transID, msg.key, msg.value);
+			Message retmsg(msg.transID, this->memberNode->addr, REPLY, result);
+			emulNet->ENsend(&this->memberNode->addr, &msg.fromAddr, retmsg.toString());
+		}
+		else if(msg.type == DELETE){
+			auto result = deletekey(msg.key);
+			if(result)
+				log->logDeleteSuccess(&this->memberNode->addr, false, msg.transID, msg.key);
+			else
+				log->logDeleteFail(&this->memberNode->addr, false, msg.transID, msg.key);
+			Message retmsg(msg.transID, this->memberNode->addr, REPLY, result);
+			emulNet->ENsend(&this->memberNode->addr, &msg.fromAddr, retmsg.toString());
+		}
 	}
 
 	/*
@@ -331,4 +506,14 @@ void MP2Node::stabilizationProtocol() {
 	/*
 	 * Implement this
 	 */
+}
+
+
+size_t MP2Node::findPredecessor(size_t hashcode){
+	for(size_t i = 0; i < this->ring.size(); ++i){
+		if(this->ring[i].getHashCode() >= hashcode){
+			return i;
+		}
+	}
+	return 0;
 }

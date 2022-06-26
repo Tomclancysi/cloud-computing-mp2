@@ -27,6 +27,7 @@ public:
 	// delimiter
 	string delimiter;
 	// construct a message from a string
+	
 	Message(string message);
 	Message(const Message& anotherMessage);
 	// construct a create or update message

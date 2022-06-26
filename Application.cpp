@@ -52,9 +52,11 @@ Application::Application(char *infile) {
 	log = new Log(par);
 	en = new EmulNet(par);
 	en1 = new EmulNet(par);
+	printf("malloc mp1\n");
 	mp1 = (MP1Node **) malloc(par->EN_GPSZ * sizeof(MP1Node *));
+	printf("malloc mp2\n");
 	mp2 = (MP2Node **) malloc(par->EN_GPSZ * sizeof(MP2Node *));
-
+	printf("malloc mp1 and mp2 end\n");
 	/*
 	 * Init all nodes
 	 */
@@ -82,7 +84,9 @@ Application::~Application() {
 	delete en1;
 	for ( int i = 0; i < par->EN_GPSZ; i++ ) {
 		delete mp1[i];
+		// printf("delete mp2\n");
 		delete mp2[i];
+		// printf("deleted mp2\n");
 	}
 	free(mp1);
 	free(mp2);

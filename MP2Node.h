@@ -19,6 +19,40 @@
 #include "Message.h"
 #include "Queue.h"
 
+#include<unordered_map>
+#include<utility>
+
+#define QUORUM 2
+// class CallBack{
+// public:
+// 	int count;
+// 	Log *log;
+// 	virtual void operator()() = 0;
+// };
+
+// class ClientCreateCallBack : public CallBack{
+// public:
+// 	Address addr;
+// 	bool isCordinatior;
+// 	int transID;
+// 	string key;
+// 	string value;
+// 	ClientCreateCallBack(Address addr,
+// 		bool isCordinatior,
+// 		int transID,
+// 		string key,
+// 		string value){
+// 	}
+// 	void operator()(){
+// 		if(this->count == 0){
+// 			this->log->logCreateSuccess();
+// 		}
+// 		else{
+
+// 		}
+// 	}
+// };
+
 /**
  * CLASS NAME: MP2Node
  *
@@ -47,6 +81,11 @@ private:
 	EmulNet * emulNet;
 	// Object of Log
 	Log * log;
+	int myHost;
+	int myPort;
+	Node self;
+	// vector<Message> msgQueue;
+	unordered_map<int, pair<int, Message>> replyCount;
 
 public:
 	MP2Node(Member *memberNode, Params *par, EmulNet *emulNet, Log *log, Address *addressOfMember);
@@ -74,7 +113,7 @@ public:
 	void checkMessages();
 
 	// coordinator dispatches messages to corresponding nodes
-	void dispatchMessages(Message message);
+	void dispatchMessages(Message message, Address dist);
 
 	// find the addresses of nodes that are responsible for a key
 	vector<Node> findNodes(string key);
@@ -87,6 +126,9 @@ public:
 
 	// stabilization protocol - handle multiple failures
 	void stabilizationProtocol();
+
+	size_t findPredecessor(size_t hashcode);
+	void replyMessage(int transID, Address fromAddress, Address toAddress, MessageType type, bool success);
 
 	~MP2Node();
 };
