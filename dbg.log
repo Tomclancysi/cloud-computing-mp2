@@ -1,0 +1,242 @@
+131
+
+ [0] APP
+ 1.0.0.0:0 [0] APP MP2
+ 2.0.0.0:0 [0] APP
+ 2.0.0.0:0 [0] APP MP2
+ 3.0.0.0:0 [0] APP
+ 3.0.0.0:0 [0] APP MP2
+ 4.0.0.0:0 [0] APP
+ 4.0.0.0:0 [0] APP MP2
+ 5.0.0.0:0 [0] APP
+ 5.0.0.0:0 [0] APP MP2
+ 6.0.0.0:0 [0] APP
+ 6.0.0.0:0 [0] APP MP2
+ 7.0.0.0:0 [0] APP
+ 7.0.0.0:0 [0] APP MP2
+ 8.0.0.0:0 [0] APP
+ 8.0.0.0:0 [0] APP MP2
+ 9.0.0.0:0 [0] APP
+ 9.0.0.0:0 [0] APP MP2
+ 10.0.0.0:0 [0] APP
+ 10.0.0.0:0 [0] APP MP2
+ 4.0.0.0:0 [0] Trying to join...
+ 3.0.0.0:0 [0] Trying to join...
+ 2.0.0.0:0 [0] Trying to join...
+ 1.0.0.0:0 [0] Starting up group...
+ 1.0.0.0:0 [0] Node 1.0.0.0:0 joined at time 0
+ 8.0.0.0:0 [1] Trying to join...
+ 7.0.0.0:0 [1] Trying to join...
+ 6.0.0.0:0 [1] Trying to join...
+ 5.0.0.0:0 [1] Trying to join...
+ 1.0.0.0:0 [1] Node 2.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [1] accepted join req from IP 2.0.0.0, reply it.
+
+ 1.0.0.0:0 [1] Node 3.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [1] accepted join req from IP 3.0.0.0, reply it.
+
+ 1.0.0.0:0 [1] Node 4.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [1] accepted join req from IP 4.0.0.0, reply it.
+
+ 10.0.0.0:0 [2] Trying to join...
+ 9.0.0.0:0 [2] Trying to join...
+ 4.0.0.0:0 [2] Node 2.0.0.0:0 joined at time 2
+ 4.0.0.0:0 [2] Node 3.0.0.0:0 joined at time 2
+ 4.0.0.0:0 [2] Node 1.0.0.0:0 joined at time 2
+ 3.0.0.0:0 [2] Node 2.0.0.0:0 joined at time 2
+ 3.0.0.0:0 [2] Node 1.0.0.0:0 joined at time 2
+ 3.0.0.0:0 [2] Node 4.0.0.0:0 joined at time 2
+ 2.0.0.0:0 [2] Node 1.0.0.0:0 joined at time 2
+ 1.0.0.0:0 [2] Node 5.0.0.0:0 joined at time 2
+ 1.0.0.0:0 [2] accepted join req from IP 5.0.0.0, reply it.
+
+ 1.0.0.0:0 [2] Node 6.0.0.0:0 joined at time 2
+ 1.0.0.0:0 [2] accepted join req from IP 6.0.0.0, reply it.
+
+ 1.0.0.0:0 [2] Node 7.0.0.0:0 joined at time 2
+ 1.0.0.0:0 [2] accepted join req from IP 7.0.0.0, reply it.
+
+ 1.0.0.0:0 [2] Node 8.0.0.0:0 joined at time 2
+ 1.0.0.0:0 [2] accepted join req from IP 8.0.0.0, reply it.
+
+ 8.0.0.0:0 [3] Node 2.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 3.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 4.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 5.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 6.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 7.0.0.0:0 joined at time 3
+ 8.0.0.0:0 [3] Node 1.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 2.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 3.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 4.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 5.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 6.0.0.0:0 joined at time 3
+ 7.0.0.0:0 [3] Node 1.0.0.0:0 joined at time 3
+ 6.0.0.0:0 [3] Node 2.0.0.0:0 joined at time 3
+ 6.0.0.0:0 [3] Node 3.0.0.0:0 joined at time 3
+ 6.0.0.0:0 [3] Node 4.0.0.0:0 joined at time 3
+ 6.0.0.0:0 [3] Node 5.0.0.0:0 joined at time 3
+ 6.0.0.0:0 [3] Node 1.0.0.0:0 joined at time 3
+ 5.0.0.0:0 [3] Node 2.0.0.0:0 joined at time 3
+ 5.0.0.0:0 [3] Node 3.0.0.0:0 joined at time 3
+ 5.0.0.0:0 [3] Node 4.0.0.0:0 joined at time 3
+ 5.0.0.0:0 [3] Node 1.0.0.0:0 joined at time 3
+ 4.0.0.0:0 [3] Node 8.0.0.0:0 joined at time 3
+ 4.0.0.0:0 [3] Node 7.0.0.0:0 joined at time 3
+ 4.0.0.0:0 [3] Node 5.0.0.0:0 joined at time 3
+ 4.0.0.0:0 [3] Node 6.0.0.0:0 joined at time 3
+ 1.0.0.0:0 [3] Node 9.0.0.0:0 joined at time 3
+ 1.0.0.0:0 [3] accepted join req from IP 9.0.0.0, reply it.
+
+ 1.0.0.0:0 [3] Node 10.0.0.0:0 joined at time 3
+ 1.0.0.0:0 [3] accepted join req from IP 10.0.0.0, reply it.
+
+ 10.0.0.0:0 [4] Node 2.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 3.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 4.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 5.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 6.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 7.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 8.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 9.0.0.0:0 joined at time 4
+ 10.0.0.0:0 [4] Node 1.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 2.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 3.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 4.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 5.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 6.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 7.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 8.0.0.0:0 joined at time 4
+ 9.0.0.0:0 [4] Node 1.0.0.0:0 joined at time 4
+ 5.0.0.0:0 [4] Node 7.0.0.0:0 joined at time 4
+ 5.0.0.0:0 [4] Node 10.0.0.0:0 joined at time 4
+ 5.0.0.0:0 [4] Node 6.0.0.0:0 joined at time 4
+ 3.0.0.0:0 [4] Node 8.0.0.0:0 joined at time 4
+ 3.0.0.0:0 [4] Node 5.0.0.0:0 joined at time 4
+ 3.0.0.0:0 [4] Node 6.0.0.0:0 joined at time 4
+ 3.0.0.0:0 [4] Node 7.0.0.0:0 joined at time 4
+ 2.0.0.0:0 [4] Node 8.0.0.0:0 joined at time 4
+ 2.0.0.0:0 [4] Node 3.0.0.0:0 joined at time 4
+ 2.0.0.0:0 [4] Node 7.0.0.0:0 joined at time 4
+ 2.0.0.0:0 [4] Node 5.0.0.0:0 joined at time 4
+ 2.0.0.0:0 [4] Node 6.0.0.0:0 joined at time 4
+ 6.0.0.0:0 [5] Node 7.0.0.0:0 joined at time 5
+ 6.0.0.0:0 [5] Node 8.0.0.0:0 joined at time 5
+ 5.0.0.0:0 [5] Node 8.0.0.0:0 joined at time 5
+ 4.0.0.0:0 [5] Node 10.0.0.0:0 joined at time 5
+ 3.0.0.0:0 [5] Node 9.0.0.0:0 joined at time 5
+ 3.0.0.0:0 [5] Node 10.0.0.0:0 joined at time 5
+ 2.0.0.0:0 [5] Node 4.0.0.0:0 joined at time 5
+ 7.0.0.0:0 [6] Node 8.0.0.0:0 joined at time 6
+ 7.0.0.0:0 [6] Node 10.0.0.0:0 joined at time 6
+ 4.0.0.0:0 [6] Node 9.0.0.0:0 joined at time 6
+ 9.0.0.0:0 [7] Node 10.0.0.0:0 joined at time 7
+ 8.0.0.0:0 [7] Node 10.0.0.0:0 joined at time 7
+ 6.0.0.0:0 [7] Node 10.0.0.0:0 joined at time 7
+ 5.0.0.0:0 [7] Node 9.0.0.0:0 joined at time 7
+ 2.0.0.0:0 [7] Node 9.0.0.0:0 joined at time 7
+ 6.0.0.0:0 [8] Node 9.0.0.0:0 joined at time 8
+ 2.0.0.0:0 [8] Node 10.0.0.0:0 joined at time 8
+ 8.0.0.0:0 [9] Node 9.0.0.0:0 joined at time 9
+ 7.0.0.0:0 [9] Node 9.0.0.0:0 joined at time 9
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: 18Sqb VALUE: value81 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: 254Ew VALUE: value40 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: 2eZrM VALUE: value16 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: 2kyjV VALUE: value17 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: 3IsuA VALUE: value17 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: 4ZCwr VALUE: value53 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: 5Ss7l VALUE: value33 at time: 100
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: 60a5j VALUE: value38 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: 7fCZv VALUE: value88 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: 8wdgi VALUE: value0 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: 8xloz VALUE: value12 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: 9Xjnr VALUE: value55 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: AfEkM VALUE: value59 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: BvxfA VALUE: value55 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: BwwfJ VALUE: value75 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: C2k29 VALUE: value47 at time: 100
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: DAMmm VALUE: value25 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: DbeMM VALUE: value26 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: Gr3Sh VALUE: value13 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: GrN0Q VALUE: value29 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: I4Ft3 VALUE: value75 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: JVjn6 VALUE: value61 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: Kbzba VALUE: value91 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: L63Vm VALUE: value80 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: Ltc6j VALUE: value51 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: M8Aiv VALUE: value71 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: MrErI VALUE: value98 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: OgQaF VALUE: value25 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: PCJz2 VALUE: value30 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: PD2Fd VALUE: value91 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: PnkcQ VALUE: value88 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: RiBvK VALUE: value20 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: SCmLH VALUE: value89 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: SVl0u VALUE: value19 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: SdQny VALUE: value91 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: Squ4l VALUE: value59 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: TM41k VALUE: value72 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: TWi1Z VALUE: value3 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: UP0j8 VALUE: value9 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: V4Fdx VALUE: value86 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: VXQa9 VALUE: value9 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: Vmd1O VALUE: value30 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: W0Ygf VALUE: value87 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: Wa2Ri VALUE: value71 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: WmAvd VALUE: value47 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: WmUFY VALUE: value63 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: WqQ0T VALUE: value38 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: X7aOI VALUE: value43 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: XiUGk VALUE: value91 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: XyyZk VALUE: value4 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: YR45A VALUE: value44 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: Yg5cj VALUE: value83 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: YgQZ6 VALUE: value41 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: Z1Uzb VALUE: value18 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: ZnLCT VALUE: value31 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: a9mZq VALUE: value40 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: aOYX0 VALUE: value36 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: aWYmv VALUE: value7 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: agLSa VALUE: value89 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: b9ZeP VALUE: value93 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: c9rif VALUE: value27 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: cFEOn VALUE: value40 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: cZfLX VALUE: value42 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: d7WdY VALUE: value57 at time: 100
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: gdTuW VALUE: value51 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: guqQW VALUE: value44 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: hoVT7 VALUE: value66 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: iQWbE VALUE: value22 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: jIahp VALUE: value88 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: jXn76 VALUE: value28 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: k7TBx VALUE: value64 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: kuYlO VALUE: value55 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: lWvf5 VALUE: value30 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: m3zO9 VALUE: value30 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: m4cuJ VALUE: value95 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: mPtpq VALUE: value27 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: n2xA3 VALUE: value23 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: n9EpN VALUE: value30 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: nRpTm VALUE: value88 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: nxSDk VALUE: value32 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: oKPrJ VALUE: value25 at time: 100
+ 9.0.0.0:0 [100] CREATE OPERATION KEY: oOLLF VALUE: value61 at time: 100
+ 7.0.0.0:0 [100] CREATE OPERATION KEY: p79Ff VALUE: value98 at time: 100
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: qBwbB VALUE: value12 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: qZZOF VALUE: value88 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: qZl0V VALUE: value79 at time: 100
+ 6.0.0.0:0 [100] CREATE OPERATION KEY: qzYHr VALUE: value12 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: rU1mA VALUE: value77 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: sGkpZ VALUE: value18 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: sKUfP VALUE: value12 at time: 100
+ 10.0.0.0:0 [100] CREATE OPERATION KEY: sU1Lf VALUE: value20 at time: 100
+ 4.0.0.0:0 [100] CREATE OPERATION KEY: sZzLk VALUE: value40 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: tO8n2 VALUE: value8 at time: 100
+ 2.0.0.0:0 [100] CREATE OPERATION KEY: uccrz VALUE: value92 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: uutDN VALUE: value15 at time: 100
+ 5.0.0.0:0 [100] CREATE OPERATION KEY: vi0Tz VALUE: value29 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: xuoZo VALUE: value99 at time: 100
+ 1.0.0.0:0 [100] CREATE OPERATION KEY: xxeub VALUE: value78 at time: 100
+ 3.0.0.0:0 [100] CREATE OPERATION KEY: ydsHp VALUE: value31 at time: 100
+ 8.0.0.0:0 [100] CREATE OPERATION KEY: zVvqI VALUE: value81 at time: 100
+ 1.0.0.0:0 [500] @@time=500
