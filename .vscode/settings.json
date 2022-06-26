@@ -3,6 +3,7 @@
         "xstring": "cpp",
         "xhash": "cpp",
         "queue": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "utility": "cpp"
     }
 }

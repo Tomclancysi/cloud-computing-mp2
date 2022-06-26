@@ -373,7 +373,6 @@ void MP2Node::checkMessages() {
 			
 			if((msg.type == REPLY && msg.success) || (msg.type == READREPLY && msg.value != ""))
 				value.first -= 1;
-			
 			if(value.first <= 0){
 				switch (value.second.type)
 				{
@@ -409,7 +408,8 @@ void MP2Node::checkMessages() {
 				log->logReadFail(&this->memberNode->addr, false, msg.transID, msg.key);
 			else
 				log->logReadSuccess(&this->memberNode->addr, false, msg.transID, msg.key, result);
-			Message retmsg(msg.transID, this->memberNode->addr, READREPLY, result);
+			Message retmsg(msg.transID, this->memberNode->addr, READREPLY, msg.key);
+			retmsg.value = result;
 			emulNet->ENsend(&this->memberNode->addr, &msg.fromAddr, retmsg.toString());
 		}
 		else if(msg.type == UPDATE){
