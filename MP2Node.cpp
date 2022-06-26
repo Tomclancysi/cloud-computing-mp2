@@ -77,9 +77,26 @@ void MP2Node::updateRing() {
 		for(size_t i = 0; i < ringSize; ++i){
 			if (this->ring[i].getHashCode() == self.getHashCode()){
 				// need to replica the key
-				auto newHasMyReplicas = {this->ring[(i+1) % ringSize], this->ring[(i+2) % ringSize]}; // the successor
-				auto newHaveReplicasOf = {this->ring[(i-1+ringSize) % ringSize], this->ring[(i-2+ringSize) % ringSize]}; // the predcessor
+				vector<Node> newHasMyReplicas = {this->ring[(i+1) % ringSize], this->ring[(i+2) % ringSize]}; // the successor
+				vector<Node> newHaveReplicasOf = {this->ring[(i-1+ringSize) % ringSize], this->ring[(i-2+ringSize) % ringSize]}; // the predcessor
 				// if needed to update the key, then update
+				for(auto &rep : newHasMyReplicas){
+					bool flag = false;
+					for(auto& req: hasMyReplicas)
+						if(req.getHashCode() == rep.getHashCode())
+							flag = true;
+					if(!flag){
+						// send message update my hashtable
+						for(auto& kv : this->ht->hashTable){
+							log->LOG(&this->memberNode->addr, "send the querydfsdfsdf");
+							Message msg(rand(), this->memberNode->addr, CREATE, kv.first, kv.second, ReplicaType(i));
+							Address* dist = rep.getAddress();
+							dispatchMessages(msg, *dist);
+						}
+					}
+				}
+				this->hasMyReplicas = newHasMyReplicas;
+				this->haveReplicasOf = newHaveReplicasOf;
 				break;
 			}
 		}
@@ -101,7 +118,7 @@ vector<Node> MP2Node::getMembershipList() {
 	vector<Node> curMemList;
 	auto curTime = this->par->getcurrtime();
 	for ( i = 0 ; i < this->memberNode->memberList.size(); i++ ) {
-		if(this->memberNode->memberList[i].heartbeat == 0l && curTime - this->memberNode->memberList[i].timestamp >= 20) // judge if it is out of group
+		if(this->memberNode->memberList[i].heartbeat == 0l /*&& curTime - this->memberNode->memberList[i].timestamp >= 20*/) // judge if it is out of group
 			continue;
 		Address addressOfThisMember;
 		int id = this->memberNode->memberList.at(i).getid();
